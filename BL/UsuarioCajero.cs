@@ -22,7 +22,26 @@ namespace BL
             {
                 using(DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
                 {
+                    var Cajero = (from saldoLQ in context.Cajeros 
+                                       select saldoLQ.Saldo);
+                    int SaldoCajero = Convert.ToInt32(Cajero);
+                    if (CantidadRetiro <= SaldoCajero)
+                    {
+                        //Retiro de dinero
+                        DL.UsuarioCajero usuarioCajero = new DL.UsuarioCajero();
+                        usuarioCajero.CantidadRetiro = CantidadRetiro;
+                        usuarioCajero.NoCuenta = NoCuenta;
+                        usuarioCajero.IdCajero = 1;
+                        context.UsuarioCajeros.Add(usuarioCajero);
+                        context.SaveChanges();
 
+                        //Actualizar saldo de la cuenta
+                        var saldo = (from usuarioLQ in context.Usuarios
+                                     where usuarioLQ.NoCuenta == NoCuenta
+                                     select usuarioLQ).SingleOrDefault();
+
+                        result.Correct = true;
+                    }
                 }
             }
             catch (Exception ex)
