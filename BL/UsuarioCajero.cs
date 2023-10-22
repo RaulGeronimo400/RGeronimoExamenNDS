@@ -14,5 +14,24 @@ namespace BL
         public int CantidadRetiro { get; set; }
         public int CantidadDeposito { get; set; }
         public List<object> Movimientos { get; set; }
+
+        public Result Retiro(int NoCuenta, int CantidadRetiro)
+        {
+            Result result = new Result();
+            try
+            {
+                using(DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
     }
 }

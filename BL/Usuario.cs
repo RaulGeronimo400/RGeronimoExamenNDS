@@ -14,5 +14,45 @@ namespace BL
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public int Saldo { get; set; }
+
+        public Result Login(int NIP)
+        {
+            Result result = new Result();
+
+            try
+            {
+                using (DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
+                {
+                    var query = (from usuarioLQ in context.Usuarios
+                                 where usuarioLQ.Nip == NIP
+                                 select usuarioLQ).Single();
+                    if (query != null)
+                    {
+                        Usuario usuario = new Usuario();
+                        usuario.NoCuenta = query.NoCuenta;
+                        usuario.NIP = query.Nip.Value;
+                        usuario.Nombre = query.Nombre;
+                        usuario.ApellidoPaterno = query.ApellidoPaterno;
+                        usuario.ApellidoMaterno = query.ApellidoMaterno;
+                        usuario.Saldo = query.Saldo.Value;
+
+                        result.Object = usuario;
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
     }
 }
