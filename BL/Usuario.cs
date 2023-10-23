@@ -15,7 +15,7 @@ namespace BL
         public string ApellidoMaterno { get; set; }
         public int Saldo { get; set; }
 
-        public Result Login(int NIP)
+        public static Result Login(int NIP)
         {
             Result result = new Result();
 
