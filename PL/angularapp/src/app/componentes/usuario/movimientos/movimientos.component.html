@@ -2,31 +2,41 @@
   <div class="abs-center">
     <div class="card">
       <div class="card-body">
-        <form (ngSubmit)="Add()">
+        <form (ngSubmit)="Add()" [formGroup]="form">
           <div class="card-body">
             <h1>Movimiento</h1>
-            <a type="button" class="btn btn-outline-dark" (click)="deposito=!deposito">Deposito / Retiro</a>
+            <div *ngIf="deposito; else texto" class="card-body">
+              <p>Si desea realizar un <strong>Deposito</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO</p>
+            </div>
+            <ng-template #texto>
+              <div class="card-body">
+              <p>Si desea realizar un <strong>Retiro</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO</p>
+            </div>
+            </ng-template>
+            <a class="btn btn-outline-dark btn-sm" (click)="deposito=!deposito">Deposito / Retiro</a>
           </div>
+
+
           <!-- Retiro -->
           <div *ngIf="deposito; else retiro" class="card-body">
-            Retiro
-            <input type="number" name="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
+            <label for="Retiro" class="form-label">Retiro</label>
+            <input id="Retiro" type="number" formControlName="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
                    class="form-control" maxlength="5" autofocus>
           </div>
 
           <!-- Deposito -->
           <ng-template #retiro>
             <div class="card-body">
-              Deposito
-              <input type="number" name="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Deposito:"
+              <label for="Deposito" class="form-label">Deposito</label>
+              <input id="Deposito" type="number" formControlName="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Deposito:"
                      class="form-control" maxlength="5">
             </div>
           </ng-template>
 
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-              <button type="submit" class="btn btn-success">Aceptar</button>
-              <button routerLink="/detalles" type="button" class="btn btn-primary">Regresar</button>
-            </div>
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid">Aceptar</button>
+            <button routerLink="/detalles" type="button" class="btn btn-primary btn-sm">Regresar</button>
+          </div>
         </form>
       </div>
     </div>

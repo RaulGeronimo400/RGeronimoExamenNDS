@@ -1,4 +1,4 @@
 export interface Cajero {
-  idCajero?: number;
+  idCajero: number;
   saldo?: number;
 }

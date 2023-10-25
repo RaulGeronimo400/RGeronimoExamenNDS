@@ -13,10 +13,6 @@ namespace webapi.Controllers
         [HttpPost]
         public IActionResult Movimiento([FromBody] BL.UsuarioCajero usuarioCajero)
         {
-            //var sessionCuenta = HttpContext.Session.GetInt32("NoCuenta");
-            var sessionCuenta = HttpContext.Session.GetString("NoCuenta"); //Recuperar el valor de la sesion
-            //usuarioCajero.Usuario.NoCuenta = (usuarioCajero.Usuario.NoCuenta != 0) ? usuarioCajero.Usuario.NoCuenta : (int)sessionCuenta;
-
             if (usuarioCajero.CantidadRetiro != 0)
             {
                 BL.Result result = BL.UsuarioCajero.Retiro(usuarioCajero.Usuario.NoCuenta, usuarioCajero.CantidadRetiro);

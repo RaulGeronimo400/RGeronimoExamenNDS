@@ -1,6 +1,6 @@
 export interface Usuario {
-  noCuenta?: number;
-  nip?: number;
+  noCuenta: string;
+  nip?: string;
   nombre?: string;
   apellidoPaterno?: string;
   apellidoMaterno?: string;

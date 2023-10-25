@@ -26,9 +26,50 @@ namespace BL
                     var query = (from usuarioLQ in context.Usuarios
                                  where usuarioLQ.Nip == usuario.NIP
                                  && usuarioLQ.NoCuenta == usuario.NoCuenta
+                                 select usuarioLQ).SingleOrDefault();
+                    if (query != null)
+                    {
+                        usuario.NoCuenta = query.NoCuenta;
+                        usuario.NIP = query.Nip.Value;
+                        usuario.Nombre = query.Nombre;
+                        usuario.ApellidoPaterno = query.ApellidoPaterno;
+                        usuario.ApellidoMaterno = query.ApellidoMaterno;
+                        usuario.Saldo = query.Saldo.Value;
+
+                        result.Object = usuario;
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontro el usuario";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static Result GetUser(int NoCuenta)
+        {
+            Result result = new Result();
+
+            try
+            {
+                using (DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
+                {
+                    var query = (from usuarioLQ in context.Usuarios
+                                 where usuarioLQ.NoCuenta == NoCuenta
                                  select usuarioLQ).Single();
                     if (query != null)
                     {
+                        Usuario usuario = new Usuario();
                         usuario.NoCuenta = query.NoCuenta;
                         usuario.NIP = query.Nip.Value;
                         usuario.Nombre = query.Nombre;

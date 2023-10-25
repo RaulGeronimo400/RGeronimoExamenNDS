@@ -16,15 +16,17 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   usuario: Usuario = {
-    noCuenta: 0,
-    nip: 0,
+    noCuenta: '',
+    nip: '',
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
     saldo: 0
   };
 
-  loginAuth: boolean = false;
+  ngOnInit(): void {
+    localStorage.removeItem('NoCuenta');
+  }
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -32,32 +34,29 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService) {
     this.form = this.fb.group({
-      nip: ['', [Validators.min(1000), Validators.max(99999)]],
-      noCuenta: ['', [Validators.min(1000), Validators.max(99999)]]
+      nip: ['', Validators.required],
+      noCuenta: ['', Validators.required],
+      //nip: ['', [Validators.min(1000), Validators.max(99999)]],
+      //noCuenta: ['', [Validators.min(1000), Validators.max(99999)]]
     });
-  }
-
-  ngOnInit(): void {
-    const params = this.activatedRoute.snapshot.params;
-    if (this.loginAuth) {
-      
-    }
   }
 
   login() {
     this.http.post(this.API_URI + '/Usuario', this.usuario).subscribe(
-      (res) => {
+      (res: any) => {
         console.log(res); //Muestra en consola
         this.router.navigate(['detalles']);
         this.usuario = res as Usuario; //Muestra en el navegador
-
-        this.loginAuth = true;
+        localStorage.setItem('NoCuenta', res.noCuenta);
+        localStorage.setItem('Nip', res.nip);
       },
-      (err) => console.error(err)
+      (err) => {
+        this.router.navigate(['login'])
+        this.toastr.warning(
+          'No se encontro al usuario',
+          'Usuario no encontrado'
+        );
+      }
     );
   }
-
-  /* saveData() {
-    sessionStorage.setItem('NoCuenta', this.usuario.NoCuenta);
-} */
 }

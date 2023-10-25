@@ -8,7 +8,7 @@
           </div>
           <!-- Numero de Cuenta -->
           <div class="card-body">
-            <input type="number" formControlName="noCuenta" [(ngModel)]="usuario.noCuenta" placeholder="Numero de Cuenta:"
+            <input type="text" formControlName="noCuenta" [(ngModel)]="usuario.noCuenta" placeholder="Numero de Cuenta:"
                    class="form-control" maxlength="5" autofocus>
 
             <span *ngIf="form.get('noCuenta')?.hasError('required') && form.get('noCuenta')?.touched">
@@ -18,7 +18,7 @@
 
           <!-- NIP -->
           <div class="card-body">
-            <input type="number" formControlName="nip" [(ngModel)]="usuario.nip" placeholder="NIP:"
+            <input type="text" formControlName="nip" [(ngModel)]="usuario.nip" placeholder="NIP:"
                    class="form-control" maxlength="4">
 
             <span *ngIf="form.get('nip')?.hasError('required') && form.get('nip')?.touched">

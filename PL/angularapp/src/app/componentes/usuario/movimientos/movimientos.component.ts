@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment.development';
 import { UsuarioCajero } from '../../../modelos/UsuarioCajero';
+import { Usuario } from '../../../modelos/Usuario';
 
 
 @Component({
@@ -15,12 +16,13 @@ import { UsuarioCajero } from '../../../modelos/UsuarioCajero';
 export class MovimientosComponent implements OnInit {
   API_URI = environment.apiUrl;
   deposito: boolean = false;
+  form: FormGroup;
 
- usuarioCajero: UsuarioCajero = {
+  usuarioCajero: UsuarioCajero = {
     idUsuarioCajero: 0,
     usuario: {
-      noCuenta: 0,
-      nip: 0,
+      noCuenta: '',
+      nip: '',
       nombre: '',
       apellidoPaterno: '',
       apellidoMaterno: '',
@@ -33,28 +35,59 @@ export class MovimientosComponent implements OnInit {
     cantidadRetiro: 0,
     cantidadDeposito: 0
   }
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
     private toastr: ToastrService
   ) {
-
+    this.form = this.fb.group({
+      cantidadRetiro: ['', [Validators.min(0), Validators.max(9999)]],
+      cantidadDeposito: ['', [Validators.min(0), Validators.max(9999)]]
+    });
   }
 
   ngOnInit(): void {
-    
+    if (localStorage.getItem('NoCuenta') == null) {
+      this.router.navigate(['login']);
+    }
   }
+
   Add() {
-    this.http.post(this.API_URI + '/UsuarioCajero', this.usuarioCajero).subscribe(
-      (res) => {
-        console.log(res);
+    if (this.usuarioCajero.cantidadDeposito != 0 || this.usuarioCajero.cantidadRetiro != 0) {
 
-        console.log('Se realizo correctamente el movimiento');
-        this.router.navigate(['detalles']);
+      let value = localStorage.getItem('NoCuenta');
+      this.usuarioCajero.usuario.noCuenta = value!;
+      this.usuarioCajero.usuario.nip = "0";
 
-      },
-      (err) => console.error(err)
-    );
+      this.http.post(this.API_URI + '/UsuarioCajero', this.usuarioCajero).subscribe(
+        (res) => {
+          console.log(res);
+
+          console.log('Se realizo correctamente el movimiento');
+          this.toastr.success(
+            'Se realizo correctamente el movimiento',
+            'Movimiento correcto'
+          );
+          this.router.navigate(['detalles']);
+
+        },
+        (err) => {
+          this.router.navigate(['detalles'])
+          this.toastr.warning(
+            'El usuario no tiene el saldo suficiente',
+            'Saldo insuficiente'
+          );
+        }
+      );
+    } else {
+      this.router.navigate(['detalles'])
+      this.toastr.info(
+        'El usuario no realizo ningun movimiento',
+        'Movimiento cancelado'
+      );
+    }
   }
 }
