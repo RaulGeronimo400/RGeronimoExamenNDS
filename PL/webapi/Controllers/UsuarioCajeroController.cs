@@ -13,9 +13,13 @@ namespace webapi.Controllers
         [HttpPost]
         public IActionResult Movimiento([FromBody] BL.UsuarioCajero usuarioCajero)
         {
+            //var sessionCuenta = HttpContext.Session.GetInt32("NoCuenta");
+            var sessionCuenta = HttpContext.Session.GetString("NoCuenta"); //Recuperar el valor de la sesion
+            //usuarioCajero.Usuario.NoCuenta = (usuarioCajero.Usuario.NoCuenta != 0) ? usuarioCajero.Usuario.NoCuenta : (int)sessionCuenta;
+
             if (usuarioCajero.CantidadRetiro != 0)
             {
-                BL.Result result = BL.UsuarioCajero.Retiro(usuarioCajero.NoCuenta, usuarioCajero.CantidadRetiro);
+                BL.Result result = BL.UsuarioCajero.Retiro(usuarioCajero.Usuario.NoCuenta, usuarioCajero.CantidadRetiro);
                 if (result.Correct)
                 {
                     return Ok(result);
@@ -27,7 +31,7 @@ namespace webapi.Controllers
             }
             else
             {
-                BL.Result result = BL.UsuarioCajero.Deposito(usuarioCajero.NoCuenta, usuarioCajero.CantidadDeposito);
+                BL.Result result = BL.UsuarioCajero.Deposito(usuarioCajero.Usuario.NoCuenta, usuarioCajero.CantidadDeposito);
                 if (result.Correct)
                 {
                     return Ok(result);

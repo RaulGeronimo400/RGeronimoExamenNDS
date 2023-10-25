@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.alerta{
+    text-transform: uppercase;
+    color: red;
+}
+span strong{
+    color:blue;
+}
+
+.centrarCaja {
+  position: relative !important;
+  left: 40% !important;
+}
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+.form {
+  width: 450px;
+}

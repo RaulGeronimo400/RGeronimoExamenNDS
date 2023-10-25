@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,12 +11,15 @@ namespace webapi.Controllers
     public class UsuarioController : ControllerBase
     {
         [EnableCors("API")]
-        [HttpGet("{NIP}")]
-        public IActionResult Login(int NIP)
+        [HttpPost]
+        public IActionResult Post([FromBody] BL.Usuario usuario)
         {
-            BL.Result result = BL.Usuario.Login(NIP);
+            BL.Result result = BL.Usuario.Login(usuario);
             if (result.Correct)
             {
+                HttpContext.Session.SetString("NoCuenta", usuario.NoCuenta.ToString());//Crear sesion
+
+               
                 return Ok(result.Object);
             }
             else
@@ -23,5 +27,6 @@ namespace webapi.Controllers
                 return BadRequest();
             }
         }
+
     }
 }

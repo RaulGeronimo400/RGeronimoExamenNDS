@@ -1,1 +1,34 @@
-<p>movimientos works!</p>
+<div class="container">
+  <div class="abs-center">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="Add()">
+          <div class="card-body">
+            <h1>Movimiento</h1>
+            <a type="button" class="btn btn-outline-dark" (click)="deposito=!deposito">Deposito / Retiro</a>
+          </div>
+          <!-- Retiro -->
+          <div *ngIf="deposito; else retiro" class="card-body">
+            Retiro
+            <input type="number" name="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
+                   class="form-control" maxlength="5" autofocus>
+          </div>
+
+          <!-- Deposito -->
+          <ng-template #retiro>
+            <div class="card-body">
+              Deposito
+              <input type="number" name="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Deposito:"
+                     class="form-control" maxlength="5">
+            </div>
+          </ng-template>
+
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <button type="submit" class="btn btn-success">Aceptar</button>
+              <button routerLink="/detalles" type="button" class="btn btn-primary">Regresar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

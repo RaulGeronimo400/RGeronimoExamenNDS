@@ -15,7 +15,7 @@ namespace BL
         public string ApellidoMaterno { get; set; }
         public int Saldo { get; set; }
 
-        public static Result Login(int NIP)
+        public static Result Login(Usuario usuario)
         {
             Result result = new Result();
 
@@ -24,11 +24,11 @@ namespace BL
                 using (DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
                 {
                     var query = (from usuarioLQ in context.Usuarios
-                                 where usuarioLQ.Nip == NIP
+                                 where usuarioLQ.Nip == usuario.NIP
+                                 && usuarioLQ.NoCuenta == usuario.NoCuenta
                                  select usuarioLQ).Single();
                     if (query != null)
                     {
-                        Usuario usuario = new Usuario();
                         usuario.NoCuenta = query.NoCuenta;
                         usuario.NIP = query.Nip.Value;
                         usuario.Nombre = query.Nombre;

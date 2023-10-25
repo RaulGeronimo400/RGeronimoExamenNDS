@@ -9,11 +9,10 @@ namespace BL
     public class UsuarioCajero
     {
         public int IdUsuarioCajero { get; set; }
-        public int NoCuenta { get; set; }
-        public int IdCajero { get; set; }
+        public Usuario Usuario { get; set; }
+        public Cajero Cajero { get; set; }
         public int CantidadRetiro { get; set; }
         public int CantidadDeposito { get; set; }
-        public List<object> Movimientos { get; set; }
 
         public static Result Retiro(int NoCuenta, int CantidadRetiro)
         {
@@ -145,10 +144,11 @@ namespace BL
                         foreach (var item in query)
                         {
                             UsuarioCajero usuario = new UsuarioCajero();
+                            usuario.Cajero = new Cajero();
                             usuario.IdUsuarioCajero = item.IdUsuarioCajero;
                             usuario.CantidadRetiro = (item.CantidadRetiro != null) ? item.CantidadRetiro.Value : int.Parse("0");
                             usuario.CantidadDeposito = (item.CantidadDeposito != null) ? item.CantidadDeposito.Value : int.Parse("0");
-                            usuario.IdCajero = item.IdCajero.Value;
+                            usuario.Cajero.IdCajero = item.IdCajero.Value;
                             result.Objects.Add(usuario);
                         }
                         result.Correct = true;
