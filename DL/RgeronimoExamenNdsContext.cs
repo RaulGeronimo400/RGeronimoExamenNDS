@@ -31,14 +31,14 @@ public partial class RgeronimoExamenNdsContext : DbContext
     {
         modelBuilder.Entity<Cajero>(entity =>
         {
-            entity.HasKey(e => e.IdCajero).HasName("PK__Cajero__4B5E73C7C50E788C");
+            entity.HasKey(e => e.IdCajero).HasName("PK__Cajero__4B5E73C7F5800B06");
 
             entity.ToTable("Cajero");
         });
 
         modelBuilder.Entity<Denominacione>(entity =>
         {
-            entity.HasKey(e => e.IdBillete).HasName("PK__Denomina__2B22175624983A83");
+            entity.HasKey(e => e.IdBillete).HasName("PK__Denomina__2B2217566CFC9810");
 
             entity.HasOne(d => d.IdCajeroNavigation).WithMany(p => p.Denominaciones)
                 .HasForeignKey(d => d.IdCajero)
@@ -47,7 +47,7 @@ public partial class RgeronimoExamenNdsContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.NoCuenta).HasName("PK__Usuario__66532A78A1B73893");
+            entity.HasKey(e => e.NoCuenta).HasName("PK__Usuario__66532A787CB3A0BA");
 
             entity.ToTable("Usuario");
 
@@ -65,9 +65,11 @@ public partial class RgeronimoExamenNdsContext : DbContext
 
         modelBuilder.Entity<UsuarioCajero>(entity =>
         {
-            entity.HasKey(e => e.IdUsuarioCajero).HasName("PK__UsuarioC__6FC6B13547431580");
+            entity.HasKey(e => e.IdUsuarioCajero).HasName("PK__UsuarioC__6FC6B13501FC67ED");
 
             entity.ToTable("UsuarioCajero");
+
+            entity.Property(e => e.Fecha).HasColumnType("datetime");
 
             entity.HasOne(d => d.IdCajeroNavigation).WithMany(p => p.UsuarioCajeros)
                 .HasForeignKey(d => d.IdCajero)

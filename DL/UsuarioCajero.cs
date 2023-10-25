@@ -15,6 +15,8 @@ public partial class UsuarioCajero
 
     public int? CantidadDeposito { get; set; }
 
+    public DateTime? Fecha { get; set; }
+
     public virtual Cajero? IdCajeroNavigation { get; set; }
 
     public virtual Usuario? NoCuentaNavigation { get; set; }

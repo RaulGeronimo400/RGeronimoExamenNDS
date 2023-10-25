@@ -13,6 +13,7 @@ namespace BL
         public Cajero Cajero { get; set; }
         public int CantidadRetiro { get; set; }
         public int CantidadDeposito { get; set; }
+        public string Fecha { get; set; }
 
         public static Result Retiro(int NoCuenta, int CantidadRetiro)
         {
@@ -41,6 +42,7 @@ namespace BL
                             usuarioCajero.CantidadRetiro = CantidadRetiro;
                             usuarioCajero.NoCuenta = NoCuenta;
                             usuarioCajero.IdCajero = 1;
+                            usuarioCajero.Fecha = DateTime.Now;
                             context.UsuarioCajeros.Add(usuarioCajero);
                             context.SaveChanges();
 
@@ -99,6 +101,7 @@ namespace BL
                     usuarioCajero.CantidadDeposito = CantidadDeposito;
                     usuarioCajero.NoCuenta = NoCuenta;
                     usuarioCajero.IdCajero = 1;
+                    usuarioCajero.Fecha = DateTime.Now;
                     context.UsuarioCajeros.Add(usuarioCajero);
                     context.SaveChanges();
 
@@ -137,6 +140,7 @@ namespace BL
                 {
                     var query = (from detallesLQ in context.UsuarioCajeros
                                  where detallesLQ.NoCuenta == NoCuenta
+                                 orderby detallesLQ.Fecha descending
                                  select detallesLQ).ToList();
                     result.Objects = new List<object>();
                     if (query != null)
@@ -148,6 +152,7 @@ namespace BL
                             usuario.IdUsuarioCajero = item.IdUsuarioCajero;
                             usuario.CantidadRetiro = (item.CantidadRetiro != null) ? item.CantidadRetiro.Value : int.Parse("0");
                             usuario.CantidadDeposito = (item.CantidadDeposito != null) ? item.CantidadDeposito.Value : int.Parse("0");
+                            usuario.Fecha = item.Fecha.Value.ToString("dd / MMMM / yyyy hh:mm:ss tt"); ;
                             usuario.Cajero.IdCajero = item.IdCajero.Value;
                             result.Objects.Add(usuario);
                         }

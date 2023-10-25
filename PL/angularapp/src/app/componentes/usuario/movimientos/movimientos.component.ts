@@ -33,7 +33,8 @@ export class MovimientosComponent implements OnInit {
       saldo: 0
     },
     cantidadRetiro: 0,
-    cantidadDeposito: 0
+    cantidadDeposito: 0,
+    fecha: new Date
   }
 
   constructor(

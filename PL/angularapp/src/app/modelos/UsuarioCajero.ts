@@ -7,4 +7,5 @@ export interface UsuarioCajero {
   cajero: Cajero;
   cantidadRetiro?: number;
   cantidadDeposito?: number;
+  fecha?: Date
 }
