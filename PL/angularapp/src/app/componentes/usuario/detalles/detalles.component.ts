@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../../modelos/Usuario';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalles',
@@ -59,7 +60,20 @@ export class DetallesComponent implements OnInit {
   }
 
   Salir() {
-    localStorage.removeItem('NoCuenta');
-    this.router.navigate(['login']);
+    Swal.fire({
+      title: '¿Estas seguro de salir de la aplicación?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Salir!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('NoCuenta');
+        this.router.navigate(['login']);
+      }
+    });
   }
 }
+

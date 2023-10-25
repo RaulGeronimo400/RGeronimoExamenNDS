@@ -6,12 +6,12 @@
           <div class="card-body">
             <h1>Movimiento</h1>
             <div *ngIf="deposito; else texto" class="card-body">
-              <p>Si desea realizar un <strong>Deposito</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO</p>
+              <p>Si desea realizar un <strong>Deposito</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO"</p>
             </div>
             <ng-template #texto>
               <div class="card-body">
-              <p>Si desea realizar un <strong>Retiro</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO</p>
-            </div>
+                <p>Si desea realizar un <strong>Retiro</strong> de su saldo, presione el boton de "DEPOSITO / RETIRO"</p>
+              </div>
             </ng-template>
             <a class="btn btn-outline-dark btn-sm" (click)="deposito=!deposito">Deposito / Retiro</a>
           </div>
@@ -19,7 +19,7 @@
 
           <!-- Retiro -->
           <div *ngIf="deposito; else retiro" class="card-body">
-            <label for="Retiro" class="form-label">Retiro</label>
+            <h5><label for="Retiro">Retiro</label></h5>
             <input id="Retiro" type="number" formControlName="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
                    class="form-control" maxlength="5" autofocus>
           </div>
@@ -27,15 +27,15 @@
           <!-- Deposito -->
           <ng-template #retiro>
             <div class="card-body">
-              <label for="Deposito" class="form-label">Deposito</label>
+              <h5><label for="Deposito">Deposito</label></h5>
               <input id="Deposito" type="number" formControlName="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Deposito:"
                      class="form-control" maxlength="5">
             </div>
           </ng-template>
 
           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-            <button type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid">Aceptar</button>
-            <button routerLink="/detalles" type="button" class="btn btn-primary btn-sm">Regresar</button>
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Aceptar</button>
+            <button routerLink="/detalles" type="button" class="btn btn-primary">Regresar</button>
           </div>
         </form>
       </div>
