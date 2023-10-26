@@ -20,16 +20,26 @@
           <!-- Retiro -->
           <div *ngIf="deposito; else retiro" class="card-body">
             <h5><label for="Retiro">Retiro</label></h5>
-            <input id="Retiro" type="number" formControlName="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
-                   class="form-control" maxlength="5" autofocus>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input id="Retiro" type="number" formControlName="cantidadRetiro" [(ngModel)]="usuarioCajero.cantidadRetiro" placeholder="Retiro:"
+                     class="form-control" maxlength="5">
+              <span class="input-group-text">.00</span>
+            </div>
           </div>
 
           <!-- Deposito -->
           <ng-template #retiro>
             <div class="card-body">
               <h5><label for="Deposito">Deposito</label></h5>
-              <input id="Deposito" type="number" formControlName="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Deposito:"
-                     class="form-control" maxlength="5">
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input id="Deposito" type="number" formControlName="cantidadDeposito" [(ngModel)]="usuarioCajero.cantidadDeposito" placeholder="Retiro:"
+                       class="form-control" maxlength="5">
+                <span class="input-group-text">.00</span>
+              </div>
+
+
             </div>
           </ng-template>
 

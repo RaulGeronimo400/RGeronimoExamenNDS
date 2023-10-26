@@ -17,11 +17,7 @@ export class LoginComponent implements OnInit {
 
   usuario: Usuario = {
     noCuenta: '',
-    nip: '',
-    nombre: '',
-    apellidoPaterno: '',
-    apellidoMaterno: '',
-    saldo: 0
+    nip: ''
   };
 
   ngOnInit(): void {
@@ -42,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.http.post(this.API_URI + '/Usuario', this.usuario).subscribe(
+    this.http.get(this.API_URI + '/Usuario/' + this.usuario.noCuenta + '/' + this.usuario.nip).subscribe(
       (res: any) => {
         console.log(res); //Muestra en consola
         this.router.navigate(['detalles']);

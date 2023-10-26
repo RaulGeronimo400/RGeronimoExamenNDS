@@ -12,13 +12,27 @@ namespace webapi.Controllers
     public class UsuarioController : ControllerBase
     {
         [EnableCors("API")]
-        [HttpPost]
-        public IActionResult Post([FromBody] BL.Usuario usuario)
+        //[HttpPost]
+        //public IActionResult Post([FromBody] BL.Usuario usuario)
+        //{
+        //    BL.Result result = BL.Usuario.Login(usuario);
+        //    if (result.Correct)
+        //    {
+        //        return Ok(usuario);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(result.ErrorMessage);
+        //    }
+        //}
+
+        [HttpGet("{NoCuenta}/{Nip}")]
+        public IActionResult Get(int NoCuenta, int Nip)
         {
-            BL.Result result = BL.Usuario.Login(usuario);
+            BL.Result result = BL.Usuario.Login(NoCuenta, Nip);
             if (result.Correct)
             {
-                return Ok(usuario);
+                return Ok(result.Object);
             }
             else
             {
@@ -31,6 +45,21 @@ namespace webapi.Controllers
         public IActionResult Get(int NoCuenta)
         {
             BL.Result result = BL.Usuario.GetUser(NoCuenta);
+            if (result.Correct)
+            {
+                return Ok(result.Object);
+            }
+            else
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+        }
+
+        [EnableCors("API")]
+        [HttpPost]
+        public IActionResult Post([FromBody] BL.Usuario usuario)
+        {
+            BL.Result result = BL.Usuario.Add(usuario);
             if (result.Correct)
             {
                 return Ok(result.Object);

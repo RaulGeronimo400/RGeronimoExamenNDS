@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="abs-center">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="Add()">
+          <div class="card-body">
+            <h1>Registrar Usuario</h1>
+            <p>Por favor rellena todos los cambos solicitados.</p>
+          </div>
+          <!-- NIP -->
+          <div class="card-body">
+            <input type="text" formControlName="nip" [(ngModel)]="usuario.nip" placeholder="NIP:"
+                   class="form-control" maxlength="4">
+
+            <span *ngIf="form.get('nip')?.hasError('required') && form.get('nip')?.touched">
+              El campo <span class="alerta">NIP</span> es <strong>Requerido</strong>
+            </span>
+          </div>
+
+          <!-- Nombre -->
+          <div class="card-body">
+            <input type="text" formControlName="nombre" [(ngModel)]="usuario.nombre" placeholder="Nombre(s):"
+                   class="form-control">
+
+            <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
+              El campo <span class="alerta">Nombre</span> es <strong>Requerido</strong>
+            </span>
+          </div>
+
+          <!-- Paterno -->
+          <div class="card-body">
+            <input type="text" formControlName="apellidoPaterno" [(ngModel)]="usuario.apellidoPaterno" placeholder="Apellido Paterno:"
+                   class="form-control">
+
+            <span *ngIf="form.get('apellidoPaterno')?.hasError('required') && form.get('apellidoPaterno')?.touched">
+              El campo <span class="alerta">Paterno</span> es <strong>Requerido</strong>
+            </span>
+          </div>
+
+          <!-- Materno -->
+          <div class="card-body">
+            <input type="text" formControlName="apellidoMaterno" [(ngModel)]="usuario.apellidoMaterno" placeholder="Apellido Materno:"
+                   class="form-control">
+
+            <span *ngIf="form.get('apellidoMaterno')?.hasError('required') && form.get('apellidoMaterno')?.touched">
+              El campo <span class="alerta">Materno</span> es <strong>Requerido</strong>
+            </span>
+          </div>
+
+          <!--Botones-->
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button [disabled]="form.invalid" type="submit" class="btn btn-success">Aceptar</button>
+            <a class="btn btn-warning" routerLink="/login">Regresar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

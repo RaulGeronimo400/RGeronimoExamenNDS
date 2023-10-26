@@ -45,8 +45,8 @@ export class MovimientosComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.form = this.fb.group({
-      cantidadRetiro: ['', [Validators.min(0), Validators.max(9999)]],
-      cantidadDeposito: ['', [Validators.min(0), Validators.max(9999)]]
+      cantidadRetiro: ['', [Validators.min(0), Validators.max(99999)]],
+      cantidadDeposito: ['', [Validators.min(0), Validators.max(99999)]]
     });
   }
 

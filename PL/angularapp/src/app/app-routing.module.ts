@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './componentes/usuario/login/login.component';
 import { DetallesComponent } from './componentes/usuario/detalles/detalles.component';
 import { MovimientosComponent } from './componentes/usuario/movimientos/movimientos.component';
+import { RegistroComponent } from './componentes/usuario/registro/registro.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'movimientos',
     component: MovimientosComponent
+  },
+  //Registro
+  {
+    path: 'registro',
+    component: RegistroComponent
   },
   //404
   {

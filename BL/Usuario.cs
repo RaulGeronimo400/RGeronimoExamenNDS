@@ -15,7 +15,8 @@ namespace BL
         public string ApellidoMaterno { get; set; }
         public int Saldo { get; set; }
 
-        public static Result Login(Usuario usuario)
+        //public static Result Login(Usuario usuario)
+        public static Result Login(int NoCuenta, int NIP)
         {
             Result result = new Result();
 
@@ -24,11 +25,12 @@ namespace BL
                 using (DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
                 {
                     var query = (from usuarioLQ in context.Usuarios
-                                 where usuarioLQ.Nip == usuario.NIP
-                                 && usuarioLQ.NoCuenta == usuario.NoCuenta
+                                 where usuarioLQ.Nip == NIP
+                                 && usuarioLQ.NoCuenta == NoCuenta
                                  select usuarioLQ).SingleOrDefault();
                     if (query != null)
                     {
+                        Usuario usuario = new Usuario();
                         usuario.NoCuenta = query.NoCuenta;
                         usuario.NIP = query.Nip.Value;
                         usuario.Nombre = query.Nombre;
@@ -89,6 +91,39 @@ namespace BL
             catch (Exception ex)
             {
 
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static Result Add(Usuario usuario)
+        {
+            Result result = new Result();
+            try
+            {
+                using (DL.RgeronimoExamenNdsContext context = new DL.RgeronimoExamenNdsContext())
+                {
+                    DL.Usuario usuarioDL = new DL.Usuario();
+
+                    usuarioDL.Nip = usuario.NIP;
+                    usuarioDL.Nombre = usuario.Nombre;
+                    usuarioDL.ApellidoPaterno = usuario.ApellidoPaterno;
+                    usuarioDL.ApellidoMaterno = usuario.ApellidoMaterno;
+                    usuarioDL.Saldo = 0;
+
+                    context.Usuarios.Add(usuarioDL);
+                    context.SaveChanges();
+
+                    var id = usuarioDL.NoCuenta;
+
+                    result.Correct = true;
+                    result.Object = id;
+                }
+            }
+            catch (Exception ex)
+            {
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;

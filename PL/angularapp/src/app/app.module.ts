@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { RegistroComponent } from './componentes/usuario/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     LoginComponent,
     DetallesComponent,
-    MovimientosComponent
+    MovimientosComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
