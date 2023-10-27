@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Usuario } from '../../../modelos/Usuario';
-import { environment } from '../../../../environments/environment.development';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-registro',
@@ -46,7 +46,7 @@ export class RegistroComponent {
         console.log(res);
         this.router.navigate(['login']);
         this.toastr.success(
-          `El usuario '${this.usuario.nombre}'fue registrado correctamente`,
+          `El usuario '${this.usuario.nombre}' fue registrado correctamente`,
           `El numero de cuenta es: '${res}'`
         );
       },
